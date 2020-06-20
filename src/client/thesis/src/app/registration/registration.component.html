@@ -1,0 +1,62 @@
+<app-header></app-header>
+<h1>Regisztráció</h1>
+<div class="registration">
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="validationMessage">{{validationMessage}}</div>
+        <div class="form-group">
+            <label for="username">Felhasználónév:</label>
+            <input type="text"
+                    required
+                    name="username" [(ngModel)]="model.username"
+                    #username="ngModel" />
+            <div *ngIf="username.invalid && username.touched" >
+            <span class="error" *ngIf="username.errors.required">Kötelező mező</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Jelszó:</label>
+            <input type="password"
+                    required
+                    name="password" [(ngModel)]="model.password"
+                    #password="ngModel" />
+            <div *ngIf="password.invalid && password.touched" >
+            <span class="error" *ngIf="password.errors.required">Kötelező mező</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordConfirm">Jelszó újra:</label>
+            <input type="password"
+                    required
+                    name="passwordConfirm" [(ngModel)]="pwConfirm"
+                    #passwordConfirm="ngModel" />
+            <div *ngIf="passwordConfirm.invalid && passwordConfirm.touched" >
+            <span class="error" *ngIf="passwordConfirm.errors.required">Kötelező mező</span>
+            </div>
+            <div *ngIf="pwConfirm!=model.password && passwordConfirm.touched" >
+            <span class="error">A jelszavak nem egyeznek!</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail cím:</label>
+            <input type="email"
+                    required
+                    name="email" [(ngModel)]="model.email"
+                    #email="ngModel" />
+            <div *ngIf="email.invalid && email.touched" >
+            <span class="error" *ngIf="email.errors.required">Kötelező mező</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="regCode">Regisztrációs kód:</label>
+            <input type="text"
+                    required
+                    name="regCode" [(ngModel)]="model.regCode"
+                    #regCode="ngModel" />
+            <div *ngIf="regCode.invalid && regCode.touched" >
+            <span class="error" *ngIf="regCode.errors.required">Kötelező mező</span>
+            </div>
+        </div>
+        <input type="submit" value="Regisztráció" />
+        <input type="reset" value="Törlés" />
+    </form>
+</div>

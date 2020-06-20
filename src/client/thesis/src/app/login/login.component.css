@@ -1,0 +1,12 @@
+[type="text"],
+    [type="password"],
+    [type="email"] {
+        background-color: white;
+        border: 1px solid gray;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        min-width: 30%;
+        max-width: 40%;
+        padding: 1px;
+    
+    }

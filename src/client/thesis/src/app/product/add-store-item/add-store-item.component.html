@@ -1,0 +1,13 @@
+<app-header></app-header>
+<h1>Termék hozzáadása a bolthoz</h1>
+<div class="form">
+    <form #form="ngForm">
+        <div>Termék név: {{productService.companyItem.itemName}}</div>
+        <div>Beszerzési ár: {{productService.companyItem.purchasePrice}}</div>
+        <div><label for="sellingPrice">Termék eladási ára</label><input id="sellingPrice" type="number" [(ngModel)]="model.sellingPrice" name="sellingPrice" (keypress)="checkChar($event)">HUF</div>
+        <label for="discount">Kedvezmény</label><input id="discount" type="number" [(ngModel)]="model.discount" name="discount" (keypress)="checkDouble($event)">
+        <div><label for="stock">Raktáron</label><input type="number" name="stock" id="stock" [(ngModel)]="model.stock" (keypress)="checkChar($event)"/></div>
+        <button  (click)="save()">Mentés</button>
+    </form>
+    <div class="success" *ngIf="success">Sikeresen hozzáadva</div>
+</div>

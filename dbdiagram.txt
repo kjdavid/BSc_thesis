@@ -1,0 +1,80 @@
+//dbdiagram.io
+Table companies as c {
+  id long [pk, increment]
+  version int
+  company_name varchar
+}
+
+Table stores{
+  id long [pk, increment]
+  version int
+  store_name varchar
+  address varchar
+}
+
+Table users as u {
+  id long [pk, increment]
+  version int
+  username varchar
+  password varchar
+  reg_code varchar
+  role role
+  email email
+  store_id int [ref: > stores.id] // inline relationship (many-to-one)
+}
+
+Table items as i {
+  id long [pk, increment]
+  version int
+  barcode varchar
+}
+
+Table registrationcodes as rc {
+  code varchar [pk]
+  version int
+  company_id long [ref: > c.id]
+  created_account_type role
+  is_used boolean
+  user_id long [ref: - u.id]
+}
+
+Table companies_users as cu{
+  company_id long [ref: > c.id]
+  user_id long [ref: - u.id]
+}
+
+Table company_item as ci{
+  id long [pk, increment]
+  version int
+  base64str blob
+  description text
+  item_name varchar
+  purchase_price int
+  company_id long [ref: > c.id]
+  item_id long [ref: > i.id]
+}
+
+Table store_item as si{
+  id long [pk, increment]
+  version int
+  discount double
+  stock int
+  selling_price int
+  company_item_id long [ref: > ci.id]
+  store_id long [ref: > stores.id]
+}
+
+Table sales{
+  id long [pk, increment]
+  version int
+  count int
+  date_of_sale date
+  selling_price int
+  seller_id long [ref: > u.id]
+  store_item_id long [ref: > si.id]
+}
+
+Table users_generated_codes{
+  user_id long [ref: > u.id]
+  generated_codes_code varchar [ref: - registrationcodes.code]
+}

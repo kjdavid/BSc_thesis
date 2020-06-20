@@ -1,0 +1,16 @@
+<app-header></app-header>
+<h1>Bolt módosítása</h1>
+<div id="settings">
+    <select (change)="setValue(select.value)" #select>
+        <option value="-1" selected>Kérem válasszon!</option>
+        <option *ngFor="let storeOption of userService.company.stores" value={{storeOption.id}}>{{storeOption.storeName}}</option>
+    </select>
+</div>
+<div class="form">
+    <form ngForm="form">
+        <div><label for="storeName">Bolt neve</label> <input type="text" id="storeName" name="storeName" [(ngModel)]=model.storeName></div>
+        <div><label for="address">Bolt címe</label> <input type="text" id="address" name="address" [(ngModel)]=model.address></div>
+        <button (click)="save()">Mentés</button>
+    </form>
+    <div class="success" *ngIf="success">Sikeres módosítás</div>
+</div>

@@ -1,0 +1,10 @@
+<app-header></app-header>
+<h1>Bolt hozzáadása</h1>
+<div class="form">
+    <form ngForm="form">
+        <div><label for="storeName">Bolt neve</label><input type="text" id="storeName" name="storeName" [(ngModel)]=model.storeName></div>
+        <div><label for="address">Bolt címe</label><input type="text" id="address" name="address" [(ngModel)]=model.address></div>
+        <button (click)="save()">Mentés</button>
+    </form>
+    <div class="success" *ngIf="success">Sikeres hozzáadás</div>
+</div>

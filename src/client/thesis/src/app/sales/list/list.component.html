@@ -1,0 +1,37 @@
+<app-header></app-header>
+<h1>Eladások</h1>
+<div id=settings>
+    <form>
+        <select (change)="setValue(select.value)" #select>
+            <option value="-1" selected>Teljes cég</option>
+            <option *ngFor="let storeOption of userService.company.stores" value={{storeOption.id}}>{{storeOption.storeName}}</option>
+        </select><br><br>
+        <label for="from">Kezdő dátum</label><input type="date" id="from" name="from" [(ngModel)]="model.from">
+        <label for="to">Vég dátum</label><input type="date" id="to" name="to" [(ngModel)]="model.to">
+        <button (click)="send()">Lekérdez</button>
+    </form>
+</div>
+<div id="container" *ngIf="sales.length!=0">
+    <div id="table">
+        <table>
+            <thead>
+                <tr><th>Dátum</th><th>Eladó</th><th>Termék név</th><th>Vonalkód</th><th>Darab</th><th>Beszerzési ár</th><th>Eladási ár</th><th>Profit</th></tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sale of sales">
+                    <td class=datum>{{sale.dateOfSale}}</td>
+                    <td>{{sale.seller.username}}</td>
+                    <td>{{sale.storeItem.companyItem.itemName}}</td>
+                    <td>{{sale.storeItem.companyItem.item.barcode}}</td>
+                    <td>{{sale.count}} db</td>
+                    <td>{{sale.storeItem.companyItem.purchasePrice}} HUF</td>
+                    <td>{{sale.sellingPrice}} HUF</td>
+                    <td>{{(sale.sellingPrice - sale.storeItem.companyItem.purchasePrice) * sale.count}} HUF</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr><td><b>Összes profit: {{sumProfit}} HUF</b></td></tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<app-header></app-header>
+<h1>A {{store.storeName}} Bolt termékei</h1>
+<div id="settings">
+    <div *ngIf="userService.isCompanyAdmin()"><select (change)="setSelectedStore(select.value)" #select>
+        <option value=-1 selected>Kérem válasszon!</option>
+        <option *ngFor="let storeOption of userService.company.stores" value={{storeOption.id}}>{{storeOption.storeName}}</option>
+    </select></div>
+    <input type="checkbox" name="descCB" id="descCB" [(ngModel)]="model.descCB"> <label for="descCB">Leírás</label><br>
+    <input type="checkbox" name="purchasePriceCB" id="purchasePriceCB" [(ngModel)]="model.purchasePriceCB"> <label for="purchasePriceCB">Vétel ár</label><br>
+    <input type="checkbox" name="barcodeCB" id="barcodeCB" [(ngModel)]="model.barcodeCB"> <label for="barcodeCB">Vonalkód</label><br>
+    <input type="checkbox" name="imgCB" id="imgCB" [(ngModel)]="model.imgCB"> <label for="imgCB">Kép</label><br>
+    <input type="checkbox" name="stockCB" id="stockCB" [(ngModel)]="model.stockCB" [disabled]="editables.length!=0"> <label for="stockCB">Kép</label><br>
+    <input type="checkbox" name="sellingPriceCB" id="sellingPriceCB" [(ngModel)]="model.sellingPriceCB" [disabled]="editables.length!=0"> <label for="sellingPriceCB">Eladási ár</label><br>
+    <input type="checkbox" name="discountCB" id="discountCB" [(ngModel)]="model.discountCB" [disabled]="editables.length!=0"> <label for="discountCB">Kedvezmény</label>
+</div>
+<div id="list">
+    <table>
+        <thead>
+            <tr>
+                <th colspan=11><pagination-controls (pageChange)="p = $event; resetEdit();"></pagination-controls>
+                    <input
+                        type="text"
+                        name="search"
+                        class="search__input"
+                        placeholder="Search by Name..."
+                        [(ngModel)]="filter">
+                </th>
+             </tr>
+            <tr>
+                <th>Név</th>
+                <th *ngIf="model.descCB">Leírás</th>
+                <th *ngIf="model.purchasePriceCB">Beszerzési ár</th>
+                <th *ngIf="model.barcodeCB">Vonalkód</th>
+                <th *ngIf="model.imgCB">Kép</th>
+                <th *ngIf="model.stockCB">Raktáron</th>
+                <th *ngIf="model.sellingPriceCB">Alap eladási ár</th>
+                <th *ngIf="model.discountCB">Kedvezmény</th>
+                <th></th>
+                <th>Rendelés</th>
+                <th>Eladás</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of store.storeItem | stringFilter: filter | paginate: { itemsPerPage: itemsPerPage, currentPage: p } let i = index;">
+                <td>
+                    <div>{{item.companyItem.itemName}}</div>
+                </td>
+                <td *ngIf="model.descCB">
+                    <div class = "desc">{{item.companyItem.description}}</div>
+                </td>
+                <td *ngIf="model.purchasePriceCB">
+                    <div>{{item.companyItem.purchasePrice}} HUF</div>
+                </td>
+                <td *ngIf="model.barcodeCB"><div>{{item.companyItem.item.barcode}}</div></td>
+                <td *ngIf="model.imgCB">
+                    <img [src]="getSafeHTML('data:image/png;base64,'+item.companyItem.base64str)">
+                </td>
+                <td *ngIf="model.stockCB"><div *ngIf="!isEditable(item.id)">{{item.stock}}</div><input class="pieceInput" id="{{item.id}}_stock" type="number" *ngIf="isEditable(item.id)" value={{item.stock}} (keypress)="checkChar($event)"></td>
+                <td *ngIf="model.sellingPriceCB"><div *ngIf="!isEditable(item.id)">{{item.sellingPrice}} HUF</div><input class=priceInput id="{{item.id}}_sellingPrice" type="number" *ngIf="isEditable(item.id)" value={{item.sellingPrice}} (keypress)="checkChar($event)"></td>
+                <td *ngIf="model.discountCB"><div *ngIf="!isEditable(item.id)">{{item.discount}}%</div><input class="discountInput" type="number" id="{{item.id}}_discount" *ngIf="isEditable(item.id)" value={{item.discount}} (keypress)="checkDouble($event)"></td>
+                <td>
+                    <button *ngIf="!isEditable(item.id)" (click)="edit(item.id)">Módosít</button>
+                    <button *ngIf="isEditable(item.id)" (click)="save(item.id)">Mentés</button>
+                    <button *ngIf="isEditable(item.id)" (click)="cancel(item.id)">Mégse</button>
+                </td>
+                <td><div><input class="orderInput" type="number" id ="{{item.id}}_order" (keypress)="checkChar($event)"><br><button (click)="order(item.id)">Rendelés</button></div></td>
+                <td><div><input class="saleInput" type="number" id ="{{item.id}}_sell" (keypress)="checkChar($event)"><br><button (click)="sell(item.id)">Eladás</button></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

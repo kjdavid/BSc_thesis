@@ -1,0 +1,14 @@
+<app-header></app-header>
+<h1>Termék hozzáadása a céghez</h1>
+<div class="form">
+    <form #form="ngForm">
+        <div><label for="itemName">Termék név:</label><input id="itemName" type="text" [(ngModel)]="model.itemName" name="itemName"></div>
+        <label for="description">Termék leírás:</label><textarea [(ngModel)]="model.description" name="description" id="description"></textarea>
+        <div><label for="purchasePrice">Termék beszerzési ára:</label><input id="purchasePrice" type="number" [(ngModel)]="model.purchasePrice" name="purchasePrice" (keypress)="checkChar($event)">HUF</div>
+        <label for="barcode">Termék vonalkódja:</label><input id="barcode" type="text" [(ngModel)]="model.barcode" name="barcode">
+        <div><label for="img">Kép:</label><input type="file" accept="image/png" (change)="readUrl($event)" name="img" id="img"/></div>
+        <img [src]=preview>
+        <button  (click)="save()">Mentés</button>
+    </form>
+    <div class="success" *ngIf=success>Sikeresen hozzáadva</div>
+</div>

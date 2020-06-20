@@ -1,0 +1,33 @@
+td{
+    max-width: 200px;
+    border: solid 1px;
+    text-align: center;
+    vertical-align: top;
+}
+.desc{
+    white-space: pre-line;
+    max-width: 400px;
+    text-align: left;
+}
+img{ max-width: 200px;}
+th{
+    padding-bottom: 10px;
+}
+
+h1{
+    text-align: center;
+  }
+div{
+    text-align: center;
+}
+table{
+    margin: auto;
+}
+#settings{
+    width: fit-content;
+    text-align: left;
+    padding:5px;
+}
+select{
+    width:100%
+}

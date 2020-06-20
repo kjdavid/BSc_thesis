@@ -1,0 +1,13 @@
+<app-header></app-header>
+<h1>Cég módosítása</h1>
+<div class="form">
+    <div>Módosítandó cég: <select (change)="setValue(select.value)" #select>
+            <option value=-1 selected>Kérem válasszon!</option>
+            <option *ngFor="let company of userService.companies" value={{company.id}}>{{company.companyName}}</option>
+        </select></div>
+    <form ngForm="form">
+        <div><label for="companyName">Cég neve</label><input type="text" id="companyName" name="companyName" [(ngModel)]=companyName></div>
+        <button (click)="save(select.value)">Mentés</button>
+    </form>
+    <div class="success" *ngIf="success">Sikeres módosítás</div>
+</div>

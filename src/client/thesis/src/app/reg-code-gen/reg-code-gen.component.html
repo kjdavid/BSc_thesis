@@ -1,0 +1,18 @@
+<app-header></app-header>
+<h1>Regisztrációs kód generálása</h1>
+<div class="form">
+    <div *ngIf="userService.isAdmin() && model.role!='ADMIN'">
+        <label for="companySelect">Melyik céghez generálálodjon a kód? </label><select id="companySelect" name="companySelect" (change)="setCompany(companySelect.value)" #companySelect>
+                <option value=-1 selected>Kérem válasszon!</option>
+                <option *ngFor="let company of userService.companies" value={{company.id}}>{{company.companyName}}</option>
+        </select>
+    </div>
+    <label for="roleSelect">Felhasználó típus: </label><select id="roleSelect" name="roleSelect" (change)="setRole(roleSelect.value)" #roleSelect>
+            <option value=-1 selected>Kérem válasszon!</option>
+            <option *ngIf="userService.isAdmin()" value="ADMIN">ADMIN</option>
+            <option value="COMPANY_ADMIN">COMPANY_ADMIN</option>
+            <option *ngIf="userService.isCompanyAdmin()" value="SELLER">SELLER</option>
+    </select><br>
+    <button (click)="generate()">Generálás</button>
+    <div *ngIf="regCode.length!=0"><label for="regCode">Regisztrációs kód:</label><input (focus)=copy(regCodeInput) type="text" id="regCode" name="regCode" readonly [(ngModel)]="regCode" #regCodeInput></div>
+</div>

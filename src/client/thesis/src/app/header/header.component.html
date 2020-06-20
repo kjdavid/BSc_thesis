@@ -1,0 +1,33 @@
+<div id="header">
+  <div class="link"><a routerLink="/index" >Főoldal</a></div>
+  <div class="link" *ngIf="!isLoggedIn()"><a routerLink="/login" >Bejelentkezés</a></div>
+  <div class="link" *ngIf="!isLoggedIn()"><a routerLink="/registration">Regisztráció</a></div>
+  <div class="link" *ngIf="isLoggedIn() && hasAdminRole()"><a>Cég</a> <div class="caret"></div>
+  <ul class="list">
+    <li routerLink="/company/new">Cég létrehozás</li>
+    <li routerLink="/company/edit">Cég szerkesztés</li>
+  </ul>
+</div>
+<div class="link" *ngIf="isLoggedIn() && hasCompanyAdminRole()"><a>Bolt</a><div class="caret"></div>
+<ul class="list">
+  <li routerLink="/store/new">Bolt létrehozás</li>
+  <li routerLink="/store/edit">Bolt szerkesztés</li>
+</ul>
+</div>
+<div class="link" *ngIf="isLoggedIn() && hasCompanyAdminRole()"><a routerLink ="/sales">Eladások</a></div>
+<div class="link" *ngIf="isLoggedIn() && hasCompanyAdminRole()"><a>Felhasználó</a> <div class="caret"></div>
+  <ul class="list">
+    <li routerLink="/user/list">Felhasználóim</li>
+    <li routerLink="/user/regcodegen">Reg. kód generálás</li>
+  </ul>
+</div>
+<div class="link" *ngIf="isLoggedIn() && hasAdminRole()"><a routerLink="/user/regcodegen">Kód generálás</a></div>
+<div class="link" *ngIf="isLoggedIn() && (hasCompanyAdminRole() || hasSellerRole())"><a>Termék</a><div class="caret"></div>
+  <ul class="list">
+    <li routerLink="/product/company-product-list">Cég termékei</li>
+    <li routerLink="/product/new-company-item">Új termék hozzáadás</li>
+    <li routerLink="/product/store-product-list">Bolt termékei</li>
+  </ul>
+  </div>
+  <div class="link" *ngIf="isLoggedIn()"><a (click)="logout()">Kijelentkezés</a></div>
+</div>

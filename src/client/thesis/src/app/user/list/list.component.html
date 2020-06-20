@@ -1,0 +1,16 @@
+<app-header></app-header>
+<h1>Felhasználók</h1>
+<div id="list">
+    <table>
+        <tr><th>Felhasználónév</th><th>Hatáskör</th><th>Bolt</th></tr>
+        <tr *ngFor="let user of users">
+            <td>{{user.username}}</td>
+            <td>{{user.role}}</td>
+            <td><select *ngIf="user.role=='SELLER'" (change)="setValue(user.id,select.value)" #select>
+                <option *ngIf="user.store==null" value=-1 selected>Kérem válasszon!</option>
+                <option *ngFor="let store of stores" value="{{store.id}}" [selected]="user.store!=null && user.store.id==store.id">{{store.storeName}}</option>
+            </select></td>
+        </tr>
+    </table>
+    <button (click)="save()">Mentés</button><button (click)="reset()">Visszaállítás</button>
+</div>

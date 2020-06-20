@@ -1,0 +1,58 @@
+<app-header></app-header>
+<h1>Cég termékei</h1>
+<div id="settings">
+    <input type="checkbox" name="descCB" id="descCB" [(ngModel)]="model.descCB" [disabled]="editables.length!=0"> <label for="descCB">Leírás</label><br>
+    <input type="checkbox" name="purchasePriceCB" id="purchasePriceCB" [(ngModel)]="model.purchasePriceCB" [disabled]="editables.length!=0"> <label for="purchasePriceCB">Vétel ár</label><br>
+    <input type="checkbox" name="barcodeCB" id="barcodeCB" [(ngModel)]="model.barcodeCB" [disabled]="editables.length!=0"> <label for="barcodeCB">Vonalkód</label><br>
+    <input type="checkbox" name="imgCB" id="imgCB" [(ngModel)]="model.imgCB" [disabled]="editables.length!=0"> <label for="imgCB">Kép</label>
+</div>
+<div id="list">
+    <table>
+        <thead>
+            <tr><th colspan=7><pagination-controls (pageChange)="p = $event; resetEdit(); resetSelectedStores(); resetAvailableStores();"></pagination-controls><input
+                type="text"
+                name="search"
+                class="search__input"
+                placeholder="Search by Name..."
+                [(ngModel)]="filter"></th></tr>
+            <tr><th>Név</th><th *ngIf="model.descCB">Leírás</th><th *ngIf="model.purchasePriceCB">Beszerzési ár</th><th *ngIf="model.barcodeCB">Vonalkód</th><th *ngIf="model.imgCB">Kép</th><th></th></tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of companyItem | stringFilter: filter | paginate: { itemsPerPage: itemsPerPage, currentPage: p } let i = index;">
+                <td>
+                    <div *ngIf="!isEditable(item.id)">{{item.itemName}}</div>
+                    <input id="{{item.id}}_name" class="itemName" size=40 *ngIf="isEditable(item.id)" type="text" value="{{item.itemName}}">
+                </td>
+                <td *ngIf="model.descCB">
+                    <div class = "desc" *ngIf="!isEditable(item.id)">{{item.description}}</div>
+                    <textarea id="{{item.id}}_desc" *ngIf="isEditable(item.id)" value="{{item.description}}"></textarea>
+                </td>
+                <td *ngIf="model.purchasePriceCB">
+                    <div *ngIf="!isEditable(item.id)">{{item.purchasePrice}} HUF</div>
+                    <input class="purchasePriceINPUT" id="{{item.id}}_purchasePrice" *ngIf="isEditable(item.id)" (keypress)="checkChar($event)" type="number" value="{{item.purchasePrice}}">
+                </td>
+                <td *ngIf="model.barcodeCB"><div>{{item.item.barcode}}</div></td>
+                <td *ngIf="model.imgCB">
+                    <img *ngIf="!isEditable(item.id)" [src]="getSafeHTML('data:image/png;base64,'+item.base64str)">
+                    <input type="file" name="file" accept="image/png" (change)="readUrl($event)" *ngIf="isEditable(item.id)"/>
+                    <img *ngIf="isEditable(item.id)" [src]=preview>
+                </td>
+                <td>
+                    <button *ngIf="!isEditable(item.id)" (click)="edit(item.id)">Módosít</button>
+                    <button *ngIf="isEditable(item.id)" (click)="save(item.id)">Mentés</button>
+                    <button *ngIf="isEditable(item.id)" (click)="cancel(item.id)">Mégse</button>
+                </td>
+                <td *ngIf="userService.isCompanyAdmin() && availableStores.get(item.id).length!=0">
+                    <select (change)="setSelectedStore(item.id,select.value)" #select>
+                        <option value=-1 selected>Kérem válasszon!</option>
+                        <option *ngFor="let store of availableStores.get(item.id)" value={{store.id}}>{{store.storeName}}</option>
+                    </select><br>
+                    <button *ngIf="userService.isCompanyAdmin()" (click)=addToStore(item,selectedStores.get(item.id))>Bolthoz rendel</button>
+                </td>
+                <td *ngIf="myStoreAvailable(item.id)">
+                    <button (click)=addToStore(item,userService.user.store)>Boltomhoz rendel</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

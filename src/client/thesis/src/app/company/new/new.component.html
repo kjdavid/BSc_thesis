@@ -1,0 +1,9 @@
+<app-header></app-header>
+<h1>Cég hozzáadása</h1>
+<div class="form">
+    <form ngForm="form">
+        <div><label for="companyName">Cég neve</label><input type="text" id="companyName" name="companyName" [(ngModel)]=companyName></div>
+        <button (click)="save()">Mentés</button>
+    </form>
+    <div class="success" *ngIf=success>Sikeresen hozzáadva</div>
+</div>

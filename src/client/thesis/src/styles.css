@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+
+* { 
+    padding:0;
+    margin:0;
+    
+    }
+    img{
+        width:200px;
+    }
+    #header {
+        font-family: Arial, Helvetica, sans-serif;
+        height: 50px;
+        background: black;
+        color: whitesmoke;
+        font-size:  18px;
+        padding-top: 8px;
+        margin-bottom: 20px;
+        padding-inline-start: 25%;
+        
+    }
+    .success{
+        text-align: center;
+        font-weight:bold;
+    }
+    #index,
+    #settings,
+    #itemDetails{
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        background: #c0c0c0;
+        margin: 0 auto;
+        width: 50%;
+        margin-top: 10px;
+        margin-bottom: 10px;  
+        border-radius: 10px;
+        padding: 30px 40px 40px 40px;
+       
+    }
+    #list {
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        background: #c0c0c0;
+        margin: 0 auto;
+        min-width: 50%;
+        max-width: 80%;
+        margin-top: 10px;
+        margin-bottom: 10px;  
+        border-radius: 10px;
+        padding: 30px 40px 40px 40px;
+    }
+    
+    .login,
+    .registration,
+    .upload,
+    .form
+     {
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        background: #c0c0c0;
+        margin: 0 auto;
+        width: 30%;
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;  
+        border-radius: 10px;
+        padding: 30px 40px 40px 40px;
+       
+    }
+    
+    [type="submit"],
+    [type="reset"],
+    [type="button"] {
+        margin: 5px;
+        background-color: grey;
+        font-weight: bold;
+        color: white;
+        border: 1px solid gray;
+        padding: 2px;
+        cursor: pointer;
+    }
+    
+    [type="submit"]:hover,
+    [type="reset"]:hover,
+    [type="button"]:hover {
+        background-color: black;
+        border: 1px solid black;
+    }
+    .error{
+        color: red;
+    }
+    
+    .bottom{
+        margin-top: 15px;
+    }
+    h1{
+        text-align: center;
+    }
