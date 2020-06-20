@@ -118,13 +118,11 @@ export class StoreProductListComponent implements OnInit {
       discount:(document.getElementById(id+"_discount") as any).value,
       sellingPrice:(document.getElementById(id+"_sellingPrice") as any).value
     }
-    console.log(editableItem);
     if(editableItem.discount.toString()===""){
       alert("Wrong format of discount")!
       return;
     }
     this.productService.editStoreItem(editableItem).subscribe(value=>{
-      console.log(value);
       this.store.storeItem[index]=value;  
       this.cancel(id);
     }, err=>{
@@ -144,7 +142,6 @@ export class StoreProductListComponent implements OnInit {
     }
     this.productService.order({storeItemId:this.store.storeItem[index].id,amount:
       (document.getElementById(this.store.storeItem[index].id+'_order')as any).value}).subscribe(value=>{
-      console.log(value);
       this.store.storeItem[index]=value;
     },
     err=>{
@@ -162,10 +159,8 @@ export class StoreProductListComponent implements OnInit {
         index=i;
       }
     }
-    console.log(index);
     this.productService.sell({storeItemId:this.store.storeItem[index].id,amount:
       (document.getElementById(this.store.storeItem[index].id+'_sell')as any).value}).subscribe(value=>{
-      console.log(value);
       this.store.storeItem[index]=value;
     },
     err=>{

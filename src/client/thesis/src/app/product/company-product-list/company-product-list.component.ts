@@ -76,11 +76,9 @@ export class CompanyProductListComponent implements OnInit {
           value.base64str=value.base64str
         }
         this.companyItem[index]=value;
-        this.cancel(id)
-        console.log(this.companyItem);
+        this.cancel(id);
       }
     },err=>{
-      console.log(err);
         if(err.error!=undefined){
           alert(err.error);
         }else{
@@ -142,7 +140,6 @@ export class CompanyProductListComponent implements OnInit {
     for(let i =0; i < avStores.length; i++){
       if(avStores[i].id==storeId){
         this.selectedStores.set(id,avStores[i]);
-        console.log(this.selectedStores);
         return;
       }
     }
@@ -170,8 +167,6 @@ export class CompanyProductListComponent implements OnInit {
     return false;
   }
   addToStore(item,store){
-    console.log(item);
-    console.log(store);
     if(store!=undefined){
       this.productService.companyItem=item;
       this.productService.store=store;

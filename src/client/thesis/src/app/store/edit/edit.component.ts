@@ -44,7 +44,6 @@ export class EditComponent implements OnInit {
             this.success=true;
           }
         }
-        console.log(value)
       }),err=>{
         this.success=false;
         if(err.error!=undefined){

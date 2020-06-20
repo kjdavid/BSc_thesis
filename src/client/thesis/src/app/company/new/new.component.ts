@@ -18,7 +18,6 @@ export class NewComponent implements OnInit {
     this.companyService.addCompany(this.companyName).subscribe(value=>{
       this.success=true;
       this.userService.companies.push(value);
-      console.log(value);
     },err=>{
       this.success=false;
       if(err.error!=undefined){
@@ -26,7 +25,6 @@ export class NewComponent implements OnInit {
       }else{
         alert("Unexpected error occured");
       }
-      console.log(err);
     });
   }
 }

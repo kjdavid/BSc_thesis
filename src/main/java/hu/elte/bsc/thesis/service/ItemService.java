@@ -194,7 +194,6 @@ public class ItemService {
         return storeItem;
     }
     public StoreItem orderItem(OrderItemRq orderItemRq, Authentication authentication){
-        System.out.println(orderItemRq.getStoreItemId());
         StoreItem storeItem = storeItemRepository.findById(orderItemRq.getStoreItemId()).orElse(null);
         if (storeItem == null) {
             error = ErrorResponse.NO_ENTITY_WITH_THE_GIVEN_ID;

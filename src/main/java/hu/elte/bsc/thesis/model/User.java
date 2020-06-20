@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import java.security.Principal;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Principal {
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -56,6 +57,11 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Override
+    public String getName() {
+        return this.getUsername();
+    }
 
     public enum Role {
         ADMIN, COMPANY_ADMIN, SELLER

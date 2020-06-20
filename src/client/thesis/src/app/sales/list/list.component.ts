@@ -20,10 +20,8 @@ export class ListComponent implements OnInit {
     this.selectValue=val;
   }
   send(){
-    console.log(this.selectValue);
     if(this.selectValue==-1){
       this.saleService.getSales(this.model).subscribe(value=>{
-        console.log(value);
         this.sales=value;
         this.calculateSumProfit();
       },
@@ -36,7 +34,6 @@ export class ListComponent implements OnInit {
       })
     }else{
       this.saleService.getSalesByShop({...this.model, storeId: this.selectValue}).subscribe(value=>{
-        console.log(value);
         this.sales=value;
         this.calculateSumProfit();
       },

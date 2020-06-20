@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 //TODO *addCompany checked* *addShop checked* *editCompany checked* *editShop checked* //ItemControllerBasics
 // NICE_TO_HAVE: addUserToShop
-@CrossOrigin(origins="http://localhost:4200", maxAge=3600)
+@CrossOrigin(origins="*", maxAge=3600)
 @RequestMapping("/api/company")
 @RestController
 public class CompanyController {

@@ -32,12 +32,10 @@ export class UserService {
   }
 
   public login(user: User) {
-    //const headers = new HttpHeaders({username:user.username, password:user.password})
-    return this.http.post<User>(environment.serverUrl+':'+environment.serverPort+'/api/user/login',user);
+    return this.http.post<User>(environment.serverUrl+':'+environment.serverPort+'/api/user/login',user,{observe: 'response'});
   }
   isUserLoggedIn() {
     let user = sessionStorage.getItem('Authorization')
-    console.log(user);
     return !(user === null)
   }
   logOut() {
@@ -45,8 +43,6 @@ export class UserService {
     sessionStorage.removeItem('Authorization');
     this.company=undefined;
     this.companies=undefined;
-
-    console.log("Kijelenzkeznék...")
     this.router.navigate(['index']);
   }
   generateCode(regCodeRq){
@@ -64,7 +60,6 @@ export class UserService {
     const response$: Observable<any> = this.http.get(environment.serverUrl+':'+environment.serverPort+'/api/company/mycompany',{"headers":headers});
     response$.subscribe((value)=>{
       this.company=value;
-      console.log(this.company)
       sessionStorage.setItem("companyId",value.id)
     })
   }
@@ -85,7 +80,6 @@ export class UserService {
     const headers = new HttpHeaders({ Authorization: sessionStorage.getItem("Authorization")});
     const response$: Observable<any> = this.http.get(environment.serverUrl+':'+environment.serverPort+'/api/company',{"headers":headers});
     response$.subscribe(value=>{
-      console.log(value)
       this.companies=value;
     })
   }

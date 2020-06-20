@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -30,13 +31,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.userService.login(this.model).subscribe(
-        user => {
-          console.log(user);
-          if(user!==undefined){
-            this.userService.user=user;
-            sessionStorage.setItem('Authorization','Basic ' + btoa(this.model.username + ':' + this.model.password));
-            if(user.role!=="ADMIN"){
+      let loginData = {"username":this.model.username,"password": CryptoJS.SHA256(this.model.password).toString(CryptoJS.enc.Hex)}
+      this.userService.login(loginData).subscribe(
+        response => {
+          if(response!==undefined){
+            if(response.body.username)
+            this.userService.user=response.body;
+            sessionStorage.setItem('Authorization','Basic ' + btoa(loginData.username + ':' + loginData.password));
+            if(this.userService.user.role!=="ADMIN"){
               this.userService.getCompany();
             }else{
               this.userService.getCompanies();

@@ -34,16 +34,16 @@ INSERT INTO STORES (ID, VERSION, ADDRESS, STORE_NAME, COMPANY_ID) VALUES (5,0, '
 INSERT INTO STORES (ID, VERSION, ADDRESS, STORE_NAME, COMPANY_ID) VALUES (6,0, 'Debrecen, Csapó u. 30, 4024', 'MM Debrecen',1);
 INSERT INTO STORES (ID, VERSION, ADDRESS, STORE_NAME, COMPANY_ID) VALUES (4,0, 'Budapest, Váci út 178, 1138', 'PCX Duna Plaza',2);
 
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (0, 0, 'admin', 'admin@gmail.com', 'admin', 'ADMIN', 'adminRegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (1, 0, 'hermes_aloe_vera', 'aloevera@hermes.hu', 'asd', 'COMPANY_ADMIN', 'hermesRegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (2, 0, 'mm_unatko_zoltan', 'unatkozoltan@mediamarkt.hu', 'asd', 'COMPANY_ADMIN', 'mmRegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (3, 0, 'pcx_para_zita', 'parazita@pcx.hu', 'asd', 'COMPANY_ADMIN', 'pcxRegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (4, 0, 'hermes_ka_pal', 'kapal@hermes.hu', 'asd', 'SELLER', 'seller1RegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (5, 0, 'hermes_locsolok_anna', 'locsolokanna@hermes.hu', 'asd', 'SELLER', 'seller2RegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (6, 0, 'mm_koaxk_abel', 'koaxkabel@mediamarkt.hu', 'asd', 'SELLER', 'seller3RegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE,STORE_ID) VALUES (7, 0, 'mm_ebed_elek', 'ebedelek@mediamarkt.hu', 'asd', 'SELLER', 'seller4RegCode',2);
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (8, 0, 'pcx_gep_elek', 'gepelek@pcx.hu', 'asd', 'SELLER', 'seller5RegCode');
-INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (9, 0, 'pcx_vincs_eszter', 'vincseszter@pcx.hu', 'asd', 'SELLER', 'seller6RegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (0, 0, 'admin', 'admin@gmail.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'ADMIN', 'adminRegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (1, 0, 'hermes_aloe_vera', 'aloevera@hermes.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'COMPANY_ADMIN', 'hermesRegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (2, 0, 'mm_unatko_zoltan', 'unatkozoltan@mediamarkt.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'COMPANY_ADMIN', 'mmRegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (3, 0, 'pcx_para_zita', 'parazita@pcx.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'COMPANY_ADMIN', 'pcxRegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (4, 0, 'hermes_ka_pal', 'kapal@hermes.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'SELLER', 'seller1RegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (5, 0, 'hermes_locsolok_anna', 'locsolokanna@hermes.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'SELLER', 'seller2RegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (6, 0, 'mm_koaxk_abel', 'koaxkabel@mediamarkt.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'SELLER', 'seller3RegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE,STORE_ID) VALUES (7, 0, 'mm_ebed_elek', 'ebedelek@mediamarkt.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'SELLER', 'seller4RegCode',2);
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (8, 0, 'pcx_gep_elek', 'gepelek@pcx.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'SELLER', 'seller5RegCode');
+INSERT INTO USERS (ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE, REG_CODE) VALUES (9, 0, 'pcx_vincs_eszter', 'vincseszter@pcx.hu', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 'SELLER', 'seller6RegCode');
 
 --SELECT u.id, u.USERNAME, u.PASSWORD, u.EMAIL, u.ROLE, rc.CODE, rc.IS_USED, rc.CREATED_ACCOUNT_TYPE FROM USERS u, REGISTRATIONCODES rc WHERE u.REGISTRATION_CODE_ID=rc.ID
 

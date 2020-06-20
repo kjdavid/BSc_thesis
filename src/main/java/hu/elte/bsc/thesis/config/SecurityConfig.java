@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
  *
@@ -33,19 +34,20 @@ import java.io.PrintWriter;
 @EnableWebSecurity
 @EnableAutoConfiguration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    
     @Autowired
     private DataSource dataSource;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        System.out.println(dataSource.getConnection().getClientInfo());
-//        auth
-//                .jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery("select username,password from users where username=?")
-//                .authoritiesByUsernameQuery("select username, role from users where username=?");
         auth
+                .jdbcAuthentication()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, true as enabled from users where username=?")
+                .authoritiesByUsernameQuery("select username, role, true as enabled from users where username=?");
+/*        auth
                 .inMemoryAuthentication()
                 .withUser("mm_ebed_elek")
                 .password("{noop}asd")
@@ -80,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("pcx_gep_elek")
                 .password("{noop}asd")
                 .roles("SELLER");
+        */
     }
 
     @Override
@@ -89,27 +92,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/api/**").permitAll()
                 .antMatchers("/h2/**","/api/user/login","/api/user/register","/favicon.ico").permitAll()
-                .anyRequest()
-                .authenticated()
-                .antMatchers("/api/company/mycompany").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/company/addcompany").hasRole("ADMIN")
-                .antMatchers("/api/company/editcompany").hasRole("ADMIN")
-                .antMatchers("/api/company/addstore").hasRole("COMPANY_ADMIN")
-                .antMatchers("/api/company/editstore").hasRole("COMPANY_ADMIN")
-                .antMatchers("/api/item/additemtocompany").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/item/additemtostore").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/item/editcompanyitem").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/item/editstoreitem").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/item/orderitem").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/item/addsale").hasAnyRole("COMPANY_ADMIN","SELLER")
-                .antMatchers("/api/item/getsales").hasRole("COMPANY_ADMIN")
-                .antMatchers("/api/item/getsalesbystore").hasRole("COMPANY_ADMIN")
+                .antMatchers("/api/company/mycompany").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/company/addcompany").hasAuthority("ADMIN")
+                .antMatchers("/api/company").hasAuthority("ADMIN")
+                .antMatchers("/api/company/editcompany").hasAuthority("ADMIN")
+                .antMatchers("/api/company/addstore").hasAuthority("COMPANY_ADMIN")
+                .antMatchers("/api/company/editstore").hasAuthority("COMPANY_ADMIN")
+                .antMatchers("/api/item/additemtocompany").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/item/additemtostore").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/item/editcompanyitem").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/item/editstoreitem").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/item/orderitem").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/item/addsale").hasAnyAuthority("COMPANY_ADMIN","SELLER")
+                .antMatchers("/api/item/getsales").hasAuthority("COMPANY_ADMIN")
+                .antMatchers("/api/item/getsalesbystore").hasAuthority("COMPANY_ADMIN")
+                .anyRequest().authenticated()
                 .and()
-//                .formLogin().loginPage("/api/user/login")
-//                .usernameParameter("username").passwordParameter("password")
-//                .and()
-//                .logout().logoutSuccessUrl("/login?logout")
-//                .and()
                 .exceptionHandling().authenticationEntryPoint(SecurityConfig::handleException)
                 .and()
                 .httpBasic();
@@ -118,7 +116,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static void handleException(HttpServletRequest req, HttpServletResponse rsp, AuthenticationException e)
             throws IOException {
         e.printStackTrace();
-        System.out.println("asdasdasd");
         PrintWriter writer = rsp.getWriter();
         writer.println(new ObjectMapper().writeValueAsString(ErrorResponse.UNAUTHORIZED));
         writer.close();
