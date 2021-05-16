@@ -7,7 +7,6 @@ import hu.elte.bsc.thesis.model.*;
 import hu.elte.bsc.thesis.repository.SaleRepository;
 import hu.elte.bsc.thesis.repository.StoreItemRepository;
 import hu.elte.bsc.thesis.repository.StoreRepository;
-import javafx.animation.PauseTransition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
